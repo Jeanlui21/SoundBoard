@@ -17,6 +17,14 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.dataSource = self
         tableView.delegate = self
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let context =   (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+        do {
+            sounds =  try context.fetch(Sound.fetchRequest())
+            tableView.reloadData()
+        }catch{}
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
